@@ -5,15 +5,35 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use DB;
 
 class AddReservationController extends Controller
 {
     function addReservation(Request $req){
+        //pobranie obecnej daty
         $date = Carbon::now();
         $date->toDateTimeString();
         $date->toDateString();
-        $from = $req->from;
+        //pobranie id aktualnie zalogowanego user'a
+        $logged_user_id = Auth::id();
+        //zamiana select'a na id
+        $chosen_place = $req->place;
+        echo($chosen_place);
+        $domek_id = 0;
+        //possibly zmienic na id wysylane do frontu
+        switch ($chosen_place) {
+            case "Fioletowa Chatka":
+                $domek_id = 1;
+                break;
+            case "Dom Hobbita":
+                $domek_id = 2;
+                break;
+            default:
+                return redirect()->back() ->withInput()->withErrors(['invalid_place' => 'Nie istnieje taki domek, przykro nam.']);
+        }
         //sprawdzenie czy poczatek rezerwacji jest w przyszłości
+        $from = $req->from;
         $result = $date->gt($from);
         if($result){
             return redirect()->back() ->withInput()->withErrors(['from_past' => 'Rezerwacja musi zaczynać się w przyszłości.']);
@@ -25,10 +45,20 @@ class AddReservationController extends Controller
         if(!$result){
             return redirect()->back() ->withInput()->withErrors(['to_future' => 'Koniec rezerwacji musi następować po początku.']);
         }
+        //spraawdzenie czy pokoj jest zajety
+        $zajete = DB::table('reservations')
+        ->where('from', '<=', $to)
+        ->where('to', '>', $from)
+        ->where('domek_id','=',$domek_id)
+        ->count();
+        if($zajete > 0){
+            return redirect()->back() ->withInput()->withErrors(['taken' => 'Domek niedostepny w wybranym terminie.']);
+        }
         $reservation = new Reservation;
         $reservation->from=$from;
         $reservation->to=$to;
-        $reservation->user_id=2;
+        $reservation->user_id=$logged_user_id;
+        $reservation->domek_id=$domek_id;
         $reservation->save();
         return redirect()->back()->with('message', 'Pomyślnie dokonano rezerwacji !');
     }
