@@ -21,13 +21,15 @@ Route::get('/', function () {
 /* Jakbyś miał problem z route'em że klasa kontrolera nie istnieje to
 to najpewniej dlatego że stary syntax uzywasz, jednym z fixow jest 
 podanie pelnej sciezki jak ponizej*/
-Route::get('/view-up-res','App\Http\Controllers\AdminUpcomingReservationsController@index');
-Route::get('delete/{id}','App\Http\Controllers\AdminUpcomingReservationsController@destroy');
-Route::get('/view-up-res-u','App\Http\Controllers\UserUpcomingReservationsController@index');
-Route::get('delete-u/{id}','App\Http\Controllers\UserUpcomingReservationsController@destroy');
-Route::view('add','add_reserv');
-Route::post('add',[AddReservationController::class,'addReservation']);
-//Route::get('add','App\Http\Controllers\AddReservationController@index');
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//admin routes
+Route::get('/view-up-res','App\Http\Controllers\AdminUpcomingReservationsController@index')->middleware('admin');
+Route::get('delete/{id}','App\Http\Controllers\AdminUpcomingReservationsController@destroy')->middleware('admin');
+
+//user routes
+Route::get('delete-u/{id}','App\Http\Controllers\UserUpcomingReservationsController@destroy')->middleware('auth');
+Route::view('add','add_reserv')->middleware('auth');
+Route::post('add',[AddReservationController::class,'addReservation'])->middleware('auth');
+Route::get('/view-up-res-u','App\Http\Controllers\UserUpcomingReservationsController@index')->middleware('auth');
