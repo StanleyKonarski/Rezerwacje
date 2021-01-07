@@ -1,4 +1,4 @@
-@include('header_logged')
+@include('layouts.app')
         <div class="form-group container">
         <h1 class="display-4">Dokonaj rezerwacji</h1>
         @if ($errors->any())

@@ -42,6 +42,7 @@ class UserUpcomingReservationsController extends Controller
         if($day_difference <= 3){
             return redirect()->back() ->withInput()->withErrors(['late' => 'Rezerwację można anulować najpóźniej 3 dni przed jej datą startu !']);
         }
-        //DB::delete('delete from reservations where reservation_id = ?',[$id]);
+        DB::delete('delete from reservations where reservation_id = ?',[$id]);
+        return redirect()->back()->with('message', 'Pomyślnie anulowano rezerwację !');
     }
 }

@@ -5,6 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                <h2>Cześć {{ Auth::user()->name }}!</h2>
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">

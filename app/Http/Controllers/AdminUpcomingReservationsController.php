@@ -17,7 +17,6 @@ class AdminUpcomingReservationsController extends Controller
         $date->toDateTimeString();
         $date->toDateString();
         $role = Auth::user()->role;
-        echo($role);
         $reservations = DB::table('reservations')
                             ->join('users', 'reservations.user_id', '=', 'users.id')
                             ->where('from', '>=', $date)
@@ -27,5 +26,6 @@ class AdminUpcomingReservationsController extends Controller
      //usuniecie dowolnej rezerwacji przez admina
      public function destroy($id) {
          DB::delete('delete from reservations where reservation_id = ?',[$id]);
+         return redirect()->back()->with('message', 'Pomyślnie anulowano rezerwację !');
      }
 }
