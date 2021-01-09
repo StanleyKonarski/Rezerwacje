@@ -21,6 +21,7 @@ class UserUpcomingReservationsController extends Controller
         $logged_user_id = Auth::id();
         $reservations = DB::table('reservations')
                             ->join('users', 'reservations.user_id', '=', 'users.id')
+                            ->join('domki', 'reservations.domek_id', '=', 'domki.domek_id')
                             ->where('from', '>=', $date)
                             ->where('users.id', '=', $logged_user_id )
                             ->orderBy('from')
