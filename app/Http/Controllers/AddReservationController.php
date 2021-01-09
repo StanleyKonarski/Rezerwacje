@@ -29,6 +29,9 @@ class AddReservationController extends Controller
             case "Dom Hobbita":
                 $domek_id = 2;
                 break;
+            case "Leśny Szałas":
+                $domek_id = 3;
+                break;
             default:
                 return redirect()->back() ->withInput()->withErrors(['invalid_place' => 'Nie istnieje taki domek, przykro nam.']);
         }
