@@ -1,0 +1,121 @@
+/* CARDSY */
+body{
+    background-color: aqua !important;
+}
+#cards .container{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+#cards a{
+	text-decoration: none;
+	outline: none;
+}
+#cards .card-flyer {
+	max-height: 70%;
+	transition: max-height 0.95s ease-out;
+	transition: max-height 0.95s ease-in;
+	overflow: hidden;
+}
+#cards .card-flyer .image-box{
+	background: #ffffff;
+	overflow: hidden;
+	box-shadow: 2px 2px 20px rgba(44, 146, 52, 0.9);
+}
+#cards .card-flyer .image-box img{
+	transition: all .9s ease; 
+	width: 100%;
+}
+#cards .card-flyer:hover .image-box img{
+	opacity: 0.9;
+	-webkit-transform:scale(1.1);
+	-moz-transform:scale(1.1);
+	-ms-transform:scale(1.1);
+	-o-transform:scale(1.1);
+	transform:scale(1.1);
+}
+#cards .card-flyer .text-box{
+	text-align: center;
+}
+#cards .card-flyer .text-box .text-container{
+	height: 0px;
+}
+#cards .card-flyer{
+	background: #FFFFFF;
+	margin-top: 50px;
+	transition: all 0.1s ease-in;
+	transition: all 0.1s ease-out;
+	box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.40);
+}
+#cards .card-flyer:hover{
+	background: #fff;
+	box-shadow: 0px 15px 26px rgba(0, 0, 0, 0.50);
+	margin-top: 50px;
+	max-height: 90%;
+	transition: all 0.5s ease-in;
+	transition: all 0.5s ease-out;
+}
+@media screen and (min-width: 575px) {
+	#cards .card-flyer:hover{
+		transform: scale(1.1);
+		transition: all 1s ease-in;
+		transition: all 1s ease-out;
+	}
+}
+#cards .card-flyer:hover .text-container{
+	height: 1%;
+	padding: 10px;
+}
+@media screen and (max-width: 1100px) {
+	#cards .card-flyer span{
+		font-size: 11px !important;
+		top: calc(130px - 30px) !important;
+	}
+}
+@media screen and (max-width: 991px) {
+	#cards .card-flyer span{
+		font-size: 7px !important;
+		top: calc(120px - 30px) !important;
+	}
+}
+@media screen and (max-width: 575px) {
+	#cards .card-flyer span{
+		font-size: 15px !important;
+		top: calc(200px - 30px) !important;
+	}
+}
+@media screen and (max-width: 470px) {
+	#cards .card-flyer span{
+		font-size: 8px !important;
+		top: calc(150px - 30px) !important;
+	}
+}
+@media screen and (max-width: 260px) {
+	#cards .card-flyer span{
+		font-size: 6px !important;
+		top: calc(120px - 30px) !important;
+	}
+}
+#cards .card-flyer:hover span{
+	opacity: 0;
+}
+#cards .card-flyer .text-box p{
+	font-size: 12px;
+	color: black;
+	-webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(25, 73, 29);
+}
+#cards .card-flyer span{
+	font-size: 15px;
+	position: absolute;
+	top: calc(150px - 30px);
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.4);
+	padding: 10px 50px;
+	margin: 0 45px;
+	color: white;
+	font-family: "Arial";
+	transition: all 0.3s ease-out;
+	transition: all 0.3s ease-in;
+	font-weight: bold;
+}

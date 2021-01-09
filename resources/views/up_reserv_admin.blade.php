@@ -1,13 +1,12 @@
 
 @include('layouts.app')
-   
-   @if(session()->has('message'))
-   <div class="alert alert-success">
-         {{ session()->get('message') }}
-   </div>
-   @endif
    <body>
-      <div class="container">
+      <div class="container mt-5">
+         @if(session()->has('message'))
+         <div class="alert alert-success">
+               {{ session()->get('message') }}
+         </div>
+         @endif
          <table class="table table-hover table-bordered table-striped">
             <tr>
                <td>Imie i nazwisko</td>
