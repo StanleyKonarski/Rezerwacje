@@ -20,6 +20,7 @@ class AdminUpcomingReservationsController extends Controller
         $reservations = DB::table('reservations')
                             ->join('users', 'reservations.user_id', '=', 'users.id')
                             ->where('from', '>=', $date)
+                            ->orderBy('from')
                             ->get();
         return view('up_reserv_admin',['reservations'=>$reservations]);
      }

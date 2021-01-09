@@ -60,6 +60,14 @@ class AddReservationController extends Controller
         $reservation->user_id=$logged_user_id;
         $reservation->domek_id=$domek_id;
         $reservation->save();
-        return redirect()->back()->with('message', 'Pomyślnie dokonano rezerwacji !');
+
+        //obliczanie należności
+        $from = Carbon::parse($from);
+        $price_per_night = DB::table('domki')->select('cena_za_noc')->where('domek_id', $domek_id)->first();
+        $price_per_night = $price_per_night->cena_za_noc;
+        $day_difference = $from->diffInDays($to);
+        $price = $price_per_night * $day_difference;
+        $message = 'Pomyślnie dokonano rezerwacji! Należność wynosi:'. " " .$price. " " .'PLN';
+        return redirect()->back()->with('message', $message);
     }
 }

@@ -24,6 +24,7 @@ class UserUpcomingReservationsController extends Controller
                             ->join('users', 'reservations.user_id', '=', 'users.id')
                             ->where('from', '>=', $date)
                             ->where('users.id', '=', $logged_user_id )
+                            ->orderBy('from')
                             ->get();
         return view('up_reserv_user',['reservations'=>$reservations]);
      }
