@@ -12,7 +12,7 @@
     </div>
   </div>
   <div id="ofertaHeader" class="text-center">
-      <h1 class="display-3">Nasza oferta</h1>
+      <h1 class="display-3 naglowki">Nasza oferta</h1>
       <p class="lead">Zapoznaj się z naszymi jedynymi swoim rodzaju domkami!</p>
   </div>
 <div id="cards">

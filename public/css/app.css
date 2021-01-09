@@ -11072,6 +11072,12 @@ body{
   -webkit-text-stroke-width: 0.4px;
   -webkit-text-stroke-color: #5680E9;
 }
+.custom-heading{
+  color: white;
+  font-size: 3em;
+  -webkit-text-stroke-width: 0.4px;
+  -webkit-text-stroke-color: #5680E9;
+}
 .table-custom{
   background-color: white;
 }
