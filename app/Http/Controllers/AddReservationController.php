@@ -54,19 +54,23 @@ class AddReservationController extends Controller
         if($zajete > 0){
             return redirect()->back() ->withInput()->withErrors(['taken' => 'Domek niedostepny w wybranym terminie.']);
         }
-        $reservation = new Reservation;
-        $reservation->from=$from;
-        $reservation->to=$to;
-        $reservation->user_id=$logged_user_id;
-        $reservation->domek_id=$domek_id;
-        $reservation->save();
-
-        //obliczanie należności
+         //obliczanie należności
         $from = Carbon::parse($from);
         $price_per_night = DB::table('domki')->select('cena_za_noc')->where('domek_id', $domek_id)->first();
         $price_per_night = $price_per_night->cena_za_noc;
         $day_difference = $from->diffInDays($to);
         $price = $price_per_night * $day_difference;
+
+        //ZAPIS
+        $reservation = new Reservation;
+        $reservation->from=$from;
+        $reservation->to=$to;
+        $reservation->user_id=$logged_user_id;
+        $reservation->domek_id=$domek_id;
+        $reservation->naleznosc=$price;
+        $reservation->save();
+
+        //Wiadomosc zwrotna
         $message = 'Pomyślnie dokonano rezerwacji! Należność wynosi:'. " " .$price. " " .'PLN';
         return redirect()->back()->with('message', $message);
     }
