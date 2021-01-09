@@ -6,7 +6,7 @@
       <p class="lead">Najlepsze miejsce na wypoczynek.</p>
       <p class="lead">
         <div class="text-center">
-          <a class="btn button-custom btn-lg" href="#" role="button">Rezerwacja</a>
+          <a class="btn button-custom btn-lg" href="/add" role="button">Rezerwacja</a>
         </div>
       </p>
     </div>
