@@ -7,7 +7,7 @@
                {{ session()->get('message') }}
          </div>
          @endif
-         <table class="table table-hover table-bordered table-striped">
+         <table class="table table-hover table-bordered table-striped table-custom">
             <tr>
                <td>Imie i nazwisko</td>
                <td>Początek</td>
