@@ -65,7 +65,7 @@
                                     <a class="nav-link" href="{{ url('/view-up-res') }}">Nadchodzące rezerwacje</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="">Archiwum</a>
+                                    <a class="nav-link" href="{{ url('/archiwum') }}">Archiwum</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link" href="">Statystyki</a>
