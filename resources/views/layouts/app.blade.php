@@ -24,6 +24,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -68,7 +69,7 @@
                                     <a class="nav-link" href="">Archiwum</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="">Statystyki</a>
+                                    <a class="nav-link" href="/stats">Statystyki</a>
                                 </li>
                             @elsecan('isUser')
                                 <li class="nav-item dropdown">

@@ -27,9 +27,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //admin routes
 Route::get('/view-up-res','App\Http\Controllers\AdminUpcomingReservationsController@index')->middleware('admin');
 Route::get('delete/{id}','App\Http\Controllers\AdminUpcomingReservationsController@destroy')->middleware('admin');
+Route::get('/stats','App\Http\Controllers\Statystyka@index')->middleware('admin');
 
 //user routes
 Route::get('delete-u/{id}','App\Http\Controllers\UserUpcomingReservationsController@destroy')->middleware('auth');
 Route::view('add','add_reserv')->middleware('auth');
 Route::post('add',[AddReservationController::class,'addReservation'])->middleware('auth');
 Route::get('/view-up-res-u','App\Http\Controllers\UserUpcomingReservationsController@index')->middleware('auth');
+Route::get('/stats','App\Http\Controllers\Statystyka@index')->middleware('auth');
