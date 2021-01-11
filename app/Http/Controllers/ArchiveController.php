@@ -16,7 +16,6 @@ class ArchiveController extends Controller
         $date = Carbon::now();
         $date->toDateTimeString();
         $date->toDateString();
-        $role = Auth::user()->role;
         $reservations = DB::table('reservations')
                             ->join('users', 'reservations.user_id', '=', 'users.id')
                             ->join('domki', 'reservations.domek_id', '=', 'domki.domek_id')
