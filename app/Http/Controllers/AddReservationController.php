@@ -7,10 +7,15 @@ use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use DateTime;
 
 class AddReservationController extends Controller
 {
     function addReservation(Request $req){
+        $datepicker = explode(" - ", $req->datepicker);
+        $from = DateTime::createFromFormat('m/d/Y', $datepicker[0]);
+        $to = DateTime::createFromFormat('m/d/Y', $datepicker[1]);
+        if($from == false || $to == false) return redirect()->back() ->withInput()->withErrors(['incorrect_date_format' => 'Nieprawidłowy format daty.']);
         //pobranie obecnej daty
         $date = Carbon::now();
         $date->toDateTimeString();
@@ -36,13 +41,13 @@ class AddReservationController extends Controller
                 return redirect()->back() ->withInput()->withErrors(['invalid_place' => 'Nie istnieje taki domek, przykro nam.']);
         }
         //sprawdzenie czy poczatek rezerwacji jest w przyszłości
-        $from = $req->from;
+        //$from = $req->from;
         $result = $date->gt($from);
         if($result){
             return redirect()->back() ->withInput()->withErrors(['from_past' => 'Rezerwacja musi zaczynać się w przyszłości.']);
         }
         //sprawdzenie czy koniec jest po początku
-        $to = $req->to;
+        //$to = $req->to;
         $to = Carbon::parse($to);
         $result = $to->gt($from);
         if(!$result){
@@ -76,5 +81,18 @@ class AddReservationController extends Controller
         //Wiadomosc zwrotna
         $message = 'Pomyślnie dokonano rezerwacji! Należność wynosi:'. " " .$price. " " .'PLN';
         return redirect()->back()->with('message', $message);
+    }
+
+    function getReservations(){
+        $dates = array();
+        $reservations = DB::table('reservations')
+            //->select(DB::raw('reservations.from, reservations.to'))
+            ->leftJoin('domki', 'domki.domek_id', '=', 'reservations.domek_id')
+            ->where('domki.nazwa_domku', '=', $_GET['domek'])
+            ->get();
+        foreach ($reservations as $reservation) {
+            
+        }
+        return response()->json($reservations);
     }
 }
