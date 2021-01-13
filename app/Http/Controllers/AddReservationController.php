@@ -19,7 +19,6 @@ class AddReservationController extends Controller
         $logged_user_id = Auth::id();
         //zamiana select'a na id
         $chosen_place = $req->place;
-        echo($chosen_place);
         $domek_id = 0;
         //possibly zmienic na id wysylane do frontu
         switch ($chosen_place) {

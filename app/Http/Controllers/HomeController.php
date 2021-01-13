@@ -8,6 +8,7 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Models\Domek;
 
 class HomeController extends Controller
 {
@@ -45,6 +46,8 @@ class HomeController extends Controller
         
         //wyciagniecie trzech najbliższych rezerwacji
         $date = Carbon::now();
+        //fajny trick
+        //var_dump($date);die;
         $date->toDateTimeString();
         $date->toDateString();
         //wyciagniecie trzech najbliższych rezerwacji
@@ -55,5 +58,31 @@ class HomeController extends Controller
                             ->limit(3)
                             ->get();
         return view('home',['naleznosci'=>$naleznosci],['reservations'=>$reservations]);
+    }
+    public function changePrice(Request $req){
+        $chosen_place = $req->place;
+        $price = $req->price;
+        $domek_id = 0;
+        //possibly zmienic na id wysylane do frontu
+        switch ($chosen_place) {
+            case "Fioletowa Chatka":
+                $domek_id = 1;
+                break;
+            case "Dom Hobbita":
+                $domek_id = 2;
+                break;
+            case "Leśny Szałas":
+                $domek_id = 3;
+                break;
+            default:
+                return redirect()->back() ->withInput()->withErrors(['invalid_place' => 'Nie istnieje taki domek, przykro nam.']);
+        }
+        DB::table('domki')
+            ->where('domek_id', $domek_id)
+            ->update(['cena_za_noc' => $price]);
+
+        //Wiadomosc zwrotna
+        $message = 'Pomyślnie zmieniono cenę!';
+        return redirect()->back()->with('message', $message);
     }
 }

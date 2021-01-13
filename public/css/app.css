@@ -10930,7 +10930,7 @@ body{
 #cards .card-flyer .image-box{
 	background: #ffffff;
 	overflow: hidden;
-	box-shadow: 2px 2px 20px rgba(44, 146, 52, 0.9);
+	box-shadow: 2px 2px 20px rgba(86, 128, 233, 0.9);
 }
 #cards .card-flyer .image-box img{
 	transition: all .9s ease; 
@@ -11088,4 +11088,7 @@ body{
   width:100%;
   height:60px;   /* Height of the footer */
   margin: 0;
+}
+.div-height{
+  height: 20%;
 }
