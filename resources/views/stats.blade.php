@@ -1,6 +1,6 @@
 @include('layouts.app')
-<div class="container" id="stats">
-    <h2 style="text-align: center">Ilość rezerwacji poszczególnych domków w miesiącach bieżącego roku</h2>
+<div class="container mt-5" id="stats">
+    <h2 style="text-align: center" class="mb-5 custom-heading">Ilość rezerwacji poszczególnych domków w miesiącach ubiegłego roku</h2>
     <div class="row">
     <div class="col-md-4">
         <canvas id="bar_1"></canvas>

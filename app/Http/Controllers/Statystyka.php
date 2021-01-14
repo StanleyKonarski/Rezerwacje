@@ -17,7 +17,7 @@ class Statystyka extends Controller
         );
         $reservations = json_decode(json_encode(DB::table('reservations')
             ->select(DB::raw('count(reservation_id) as count, domek_id, month(reservations.from) as month'))
-            ->where(DB::raw('year(reservations.from)'), '=', $year)
+            ->where(DB::raw('year(reservations.from)'), '=', $year-1)
             ->groupBy('domek_id')
             ->groupBy(DB::raw('month(reservations.from)'))
             ->get()), true);

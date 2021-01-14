@@ -84,15 +84,16 @@ class AddReservationController extends Controller
     }
 
     function getReservations(){
-        $dates = array();
+        $response = array();
         $reservations = DB::table('reservations')
             //->select(DB::raw('reservations.from, reservations.to'))
             ->leftJoin('domki', 'domki.domek_id', '=', 'reservations.domek_id')
             ->where('domki.nazwa_domku', '=', $_GET['domek'])
             ->get();
-        foreach ($reservations as $reservation) {
-            
-        }
+            //var_dump(json_encode($reservations)); die;
+        // foreach ($reservations as $reservation) {
+        //     array_push($response, $reservation);
+        // }
         return response()->json($reservations);
     }
 }

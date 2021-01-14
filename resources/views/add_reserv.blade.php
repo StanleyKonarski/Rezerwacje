@@ -18,7 +18,7 @@
         @endif
             <form action="add" method="POST" autocomplete="off">
                 @csrf
-                <select class="form-control mb-3" name="place" onchange="reload(this.value)">
+                <select class="form-control mb-3" name="place" id="place">
                     <option disabled selected value> -- Wybierz domek -- </option>
                     <option>Leśny Szałas</option>
                     <option>Fioletowa Chatka</option>
@@ -28,13 +28,14 @@
                 <div class="text-center">
                     <button type="submit" class="btn button-custom">Zarezerwuj</button>
                 </div>
+                <div id="calendar"></div>
             </form>
         </div>
     </div>
     </body>
-    <!--Skrypt odpalający bootstrapowy datepicker ktory uniemozliwia wybranie daty w przeszłości-->
+
     <script type="text/javascript">
-        var disabledArr = ["01/23/2021", "01/24/2021"];
+    <!-- 
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1;
@@ -50,34 +51,11 @@
             },
             minDate: today,
             autoApply: true,
-            isInvalidDate: function(arg){
-                var month = arg._d.getMonth() + 1;
-                if (month < 10){
-                    month = "0" + month;
-                }
-
-                var date = arg._d.getDate();
-                if (date < 10){
-                    date = "0" + date; // Leading 0
-                }
-                var year = arg._d.getYear() + 1900;   // Years are 1900 based
-
-                var compare = month + "/" + date + "/" + year;
-
-                if($.inArray(compare, disabledArr)!=-1){
-                    return arg._pf = {
-                        userInvalidated: true
-                    };
-                }
-            }
         });
 
         $('input[name="datepicker"]').on('apply.daterangepicker', function(ev, picker) {
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
         });
-
-        //$('input[name="datepicker"]').data('daterangepicker').hide = function () {};
-        //$('input[name="datepicker"]').data('daterangepicker').show();
         
         function reload(domek){
             $.ajax({
@@ -88,36 +66,47 @@
                     console.log(res);
                 }
             });
-            $('#add_res > div > form > input.date').val('');
-            $('#add_res > div > form > input.date').daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    format: 'DD/MMM/YYYY',
-                    cancelLabel: 'Clear'
-                },
-                minDate: today,
-                autoApply: true,
-                isInvalidDate: function(arg){
-                    var month = arg._d.getMonth() + 1;
-                    if (month < 10){
-                        month = "0" + month;
-                    }
-
-                    var date = arg._d.getDate();
-                    if (date < 10){
-                        date = "0" + date; // Leading 0
-                    }
-                    var year = arg._d.getYear() + 1900;   // Years are 1900 based
-
-                    var compare = month + "/" + date + "/" + year;
-
-                    if($.inArray(compare, disabledArr)!=-1){
-                        return arg._pf = {
-                            userInvalidated: true
-                        };
-                    }
-                }
+            $('#calendar').fullCalendar( 'refetchEvents' );
+            var listEvent = calendar.getEvents();
+            listEvent.forEach(event => {
+                event.remove();
             });
         }
+
+        $('#place').change( function(){
+            var results;
+            $.ajax({
+                type: "GET",
+                url: "get_res?domek=" + this.value,
+                success: function (data) {
+                    results = JSON.stringify(data);
+                }
+            });
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                eventBackgroundColor: '#e68f8f',
+            });
+            setTimeout(function(){
+                var obj = JSON.parse(results); 
+                var res = [];
+                for(var i in obj){
+                    var date = obj[i]['to'].split('-');
+                    var date_to = date[0] + '-' + date[1] + '-' + (parseInt(date[2]) >= 9 ? (parseInt(date[2]) + 1) : '0' + (parseInt(date[2]) + 1));
+                    var date_check = new Date(date_to);
+                    if(isNaN((new Date(date_to)).getTime())){
+                        // jezeli nastepny dzien tworzy nieprawidlowa date to zacznij nowy miesiac
+                        date_to = date[0] + '-' + (parseInt(date[1]) >= 9 ? (parseInt(date[1]) + 1) : '0' + (parseInt(date[1]) + 1)) + '-' + '01';
+                        if(isNaN((new Date(date_to)).getTime())){
+                            // jezeli nastepny miesiac tworzy nieprawidlowa date to zacznij nowy rok
+                            date_to = (parseInt(date[0]) + 1) + '-01-01';
+                        }
+                    }
+                    calendar.addEvent({title: 'Termin zajęty', start: obj[i]['from'], end: date_to});
+                }
+            }, 1000);
+            calendar.render();
+        });
+    //-->
     </script> 
 </html>
