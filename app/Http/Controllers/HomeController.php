@@ -63,6 +63,9 @@ class HomeController extends Controller
         $chosen_place = $req->place;
         $price = $req->price;
         $domek_id = 0;
+        if($price < 1){
+            return redirect()->back() ->withInput()->withErrors(['negative_price' => 'Musisz podać cenę większą lub równą 1.']);
+        }
         //possibly zmienic na id wysylane do frontu
         switch ($chosen_place) {
             case "Fioletowa Chatka":

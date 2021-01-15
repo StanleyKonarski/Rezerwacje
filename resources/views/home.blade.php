@@ -65,7 +65,7 @@
                             <option>Fioletowa Chatka</option>
                             <option>Dom Hobbita</option>
                           </select><br>
-                        <input class="date form-control mb-5" type="number" name="price" value="{{ old('from') }}" placeholder="Nowa cena" autocomplete="off"><br>
+                        <input class="date form-control mb-5" type="number" min="1" name="price" value="{{ old('from') }}" placeholder="Nowa cena" autocomplete="off"><br>
                         <div class="text-center">
                             <button type="submit" class="btn button-custom">Zmień cenę</button>
                         </div>
