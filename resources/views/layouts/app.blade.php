@@ -85,9 +85,6 @@
                                 </li>
                             @elsecan('isUser')
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link" href="{{ url('/home') }}">Mój Panel</a>
-                                </li>
-                                <li class="nav-item dropdown">
                                     <a class="nav-link" href="{{ url('/view-up-res-u') }}">Moje rezerwacje</a>
                                 </li>
                                 <li class="nav-item dropdown">

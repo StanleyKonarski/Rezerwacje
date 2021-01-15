@@ -26,7 +26,7 @@
                   </select><br>
                 <input class="date form-control mb-3" type="text" name="datepicker" placeholder="Wskaż daty" />
                 <div class="text-center">
-                    <button type="submit" class="btn button-custom">Zarezerwuj</button>
+                    <button type="submit" class="btn button-custom mb-5">Zarezerwuj</button>
                 </div>
                 <div id="calendar"></div>
             </form>

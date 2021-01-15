@@ -22,6 +22,6 @@ class IsAdmin
         }
 
         //return redirect('home')->with('error','You have not admin access');
-        return redirect('home');
+        return redirect('/');
     }
 }

@@ -24,7 +24,7 @@ Route::get('/', [WelcomeController::class, 'index']);
 to najpewniej dlatego że stary syntax uzywasz, jednym z fixow jest 
 podanie pelnej sciezki jak ponizej*/
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('admin');
 
 //admin routes
 Route::get('/view-up-res','App\Http\Controllers\AdminUpcomingReservationsController@index')->middleware('admin');
@@ -38,3 +38,6 @@ Route::post('add',[AddReservationController::class,'addReservation'])->middlewar
 Route::get('/view-up-res-u','App\Http\Controllers\UserUpcomingReservationsController@index')->middleware('auth');
 Route::get('/stats','App\Http\Controllers\Statystyka@index')->middleware('auth');
 Route::get('get_res','App\Http\Controllers\AddReservationController@getReservations');
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
