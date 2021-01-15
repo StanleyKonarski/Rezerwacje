@@ -36,3 +36,5 @@ Route::get('delete-u/{id}','App\Http\Controllers\UserUpcomingReservationsControl
 Route::view('add','add_reserv')->middleware('auth');
 Route::post('add',[AddReservationController::class,'addReservation'])->middleware('auth');
 Route::get('/view-up-res-u','App\Http\Controllers\UserUpcomingReservationsController@index')->middleware('auth');
+Route::get('/stats','App\Http\Controllers\Statystyka@index')->middleware('auth');
+Route::get('get_res','App\Http\Controllers\AddReservationController@getReservations');
