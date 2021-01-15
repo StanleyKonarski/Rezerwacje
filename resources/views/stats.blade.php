@@ -45,7 +45,7 @@
                 },
                 layout: {
                     padding: {
-                        top: 50,
+                        top: 20,
                         bottom: 0,
                         left: 0,
                         right: 0
@@ -109,7 +109,7 @@
                 },
                 layout: {
                     padding: {
-                        top: 50,
+                        top: 20,
                         bottom: 0,
                         left: 0,
                         right: 0
@@ -133,7 +133,7 @@
                             var meta = chartInstance.controller.getDatasetMeta(i);
                             meta.data.forEach(function (bar, index) {
                                 var data = dataset.data[index];                            
-                                ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                                ctx.fillText(data, bar._model.x, bar._model.y);
                             });
                         });
                     }
@@ -172,7 +172,7 @@
                 },
                 layout: {
                     padding: {
-                        top: 50,
+                        top: 20,
                         bottom: 0,
                         left: 0,
                         right: 0
@@ -196,7 +196,7 @@
                             var meta = chartInstance.controller.getDatasetMeta(i);
                             meta.data.forEach(function (bar, index) {
                                 var data = dataset.data[index];                            
-                                ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                                ctx.fillText(data, bar._model.x, bar._model.y);
                             });
                         });
                     }
