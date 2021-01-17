@@ -34,13 +34,16 @@ class HomeController extends Controller
         $date->toDateTimeString();
         $date->toDateString();
         $first = $date->firstOfMonth();
+        $date = Carbon::now();
+        $date->toDateTimeString();
+        $date->toDateString();
         $last = $date->lastOfMonth();
         $first->toDateTimeString();
         $first->toDateString();
         $last->toDateTimeString();
         $last->toDateString();
         $naleznosci = DB::table('reservations')
-                        ->where('from', '<=', $first)
+                        ->where('from', '>=', $first)
                         ->where('to', '<=', $last)
                         ->sum('naleznosc');
         
