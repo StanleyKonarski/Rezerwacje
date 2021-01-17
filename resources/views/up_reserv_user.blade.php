@@ -3,7 +3,7 @@
       <div class="container mt-5 text-center">
          <h1 class="display-3 custom-heading">Twoje rezerwacje</h1>
       @if ($errors->any())
-         <div class=”alert alert-danger”>
+         <div class="alert alert-danger">
             <ul>
                @foreach ($errors->all() as $error)
                      <li>{{ $error }}</li>
